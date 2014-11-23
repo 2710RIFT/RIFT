@@ -5,10 +5,11 @@ $db_server = mysql_connect($db_hostname, $db_username, $db_password);
 
   mysql_select_db($db_databse) or die("Unable to select database: " . mysql_error());
 
-if (isset($_POST['cusName']))
-  	$proName = fix_string($_POST['cusName']);
+if (isset($_POST['fName']))
+  	$firstName = fix_string($_POST['fName']);
+    $lastName = fix_string($_POST['lName']);
 
-$cusQuery = "SELECT fname, lname, type, email FROM homeCus, customer WHERE ID = cusName";
+$cusQuery = "SELECT fname, lname, type, email FROM Home, customer WHERE fname = firstName AND lname = lastName";
 $result = mysql_query($proQuery);
 if(!$result) die ("Database access failed: " . mysql_error());
 
