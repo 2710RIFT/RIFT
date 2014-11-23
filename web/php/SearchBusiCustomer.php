@@ -6,9 +6,9 @@ $db_server = mysql_connect($db_hostname, $db_username, $db_password);
   mysql_select_db($db_databse) or die("Unable to select database: " . mysql_error());
 
 if (isset($_POST['cusName']))
-    $proName = fix_string($_POST['cusName']);
+    $cusName = fix_string($_POST['cusName']);
 
-$cusQuery = "SELECT name, category, type, email FROM busiCus, customer WHERE ID = cusName";
+$cusQuery = "SELECT name, category, type, email FROM Business, Customer WHERE name = %cusName%";
 $result = mysql_query($proQuery);
 if(!$result) die ("Database access failed: " . mysql_error());
 
