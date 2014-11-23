@@ -1,4 +1,4 @@
-<?php
+<?php  //This file is used for searching information about home customers.
 require_once 'login.php';
 $db_server = mysql_connect($db_hostname, $db_username, $db_password);
   If(!db_server) die ("Unable to connect to MySQL: " . mysql_error());
@@ -8,7 +8,7 @@ $db_server = mysql_connect($db_hostname, $db_username, $db_password);
 if (isset($_POST['cusName']))
   	$proName = fix_string($_POST['cusName']);
 
-$cusQuery = "SELECT fname, lname, type, email FROM homeCus WHERE ID = cusName";
+$cusQuery = "SELECT fname, lname, type, email FROM homeCus, customer WHERE ID = cusName";
 $result = mysql_query($proQuery);
 if(!$result) die ("Database access failed: " . mysql_error());
 
