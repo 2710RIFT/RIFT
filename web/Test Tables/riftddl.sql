@@ -5,6 +5,7 @@ create table Customer
 	state varchar(20),
 	zip varchar(20),
 	type varchar(10),
+	password varchar(20),
 	primary key (email)
 );
 
