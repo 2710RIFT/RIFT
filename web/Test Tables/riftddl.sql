@@ -10,8 +10,7 @@ create table Customer
 
 create table Home
 (	email varchar(20),
-	fname	varchar(20),
-	lname	varchar(20),
+	name	varchar(50),
 	gender varchar(10),
 	bday date,
 	marital varchar(20),
@@ -22,7 +21,7 @@ create table Home
 
 create table Business
 ( email varchar(20),
-	name	varchar(40),
+	name	varchar(50),
 	gross_income varchar(255),
 	category varchar(20),
 	primary key (email),
@@ -54,9 +53,8 @@ create table Store
 
 create table Region_manager
 (	mid			varchar(10), 
-  lname		varchar(20),
-  fname		varchar(20),
-	salary			numeric(8,2), 
+  name	varchar(50),
+  salary			numeric(8,2), 
 	email		varchar(30),
 	street varchar(20),
 	city varchar(20),
@@ -84,9 +82,8 @@ on delete cascade;
 
 create table Store_manager
 (	mid			varchar(10), 
-  lname		varchar(20),
-  fname		varchar(20),
-	salary			numeric(8,2), 
+  name	varchar(50),
+  salary			numeric(8,2), 
 	email		varchar(30),
 	street varchar(20),
 	city varchar(20),
@@ -100,8 +97,7 @@ create table Store_manager
 
 create table Salesperson
 (	eid	varchar(10), 
- 	fname	varchar(20),     
-	lname	varchar(20),
+ 	name	varchar(50),
 	salary numeric(8,2), 
 	email	varchar(30),
 	street varchar(20),
