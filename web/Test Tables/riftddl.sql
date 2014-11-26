@@ -62,6 +62,7 @@ create table Region_manager
 	state varchar(20),
 	zip varchar(20),
 	rid			varchar(7) not null,
+	password varchar(20),
 	primary key (mid)
 );
 
@@ -90,7 +91,8 @@ create table Store_manager
 	city varchar(20),
 	state varchar(20),
 	zip varchar(20),
-	sid	varchar(10) not null, 
+	sid	varchar(10) not null,
+	password varchar(20), 
 	primary key (mid),
 	foreign key (sid) references Store(sid)
 	on delete cascade
@@ -110,6 +112,7 @@ create table Salesperson
 	state varchar(20),
 	zip varchar(20),
 	sid	varchar(10) not null,
+	password varchar(20),
 	primary key (eid),
 	foreign key (sid) references Store (sid)	
 );
