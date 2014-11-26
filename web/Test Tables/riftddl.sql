@@ -95,6 +95,10 @@ create table Store_manager
 	on delete cascade
 );
 
+alter table Store
+add foreign key (mid) references Store_manager(mid);
+
+
 create table Salesperson
 (	eid	varchar(10), 
  	name	varchar(50),
