@@ -17,7 +17,7 @@ if($productCount > 0){
  	$price = $row["price"];
  	$type = $row["type"];
 
- 	$product_list .="<tr><td>$id</td><td> &nbsp; $name</td><td>&nbsp;&nbsp;&nbsp;$gender</td><td>$price</td><td>&nbsp;&nbsp;$type</td></tr>";
+ 	$product_list .="<tr><td>$id</td><td>$name</td><td>$gender</td><td>$price</td><td>$type</td><td><a href='inventory_edit.php?pid=$id'>edit</a>/<a href='manageinventory.php?deleteid=$id'>delete</a></tr>";
  }
 }
 else{
@@ -59,7 +59,8 @@ if (isset($_POST['name'])) {
 	//place image in the folder
 	$newname = "$fid.jpg";
 	move_uploaded_file($_FILES['fileField']['tmp_name'],"images/$newname");
-	
+	header("location:manageinventory.php");
+	exit();
 }
 	
 ?>
@@ -68,118 +69,26 @@ if (isset($_POST['name'])) {
 <html>
 <head>
 <title>RIFT SHOP LOG IN</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript">
-        $(document).ready(function() {
-            $(".dropdown img.flag").addClass("flagvisibility");
+<?php include_once("riftheader.php");?>
 
-            $(".dropdown dt a").click(function() {
-                $(".dropdown dd ul").toggle();
-            });
-                        
-            $(".dropdown dd ul li a").click(function() {
-                var text = $(this).html();
-                $(".dropdown dt a span").html(text);
-                $(".dropdown dd ul").hide();
-                $("#result").html("Selected value is: " + getSelectedValue("sample"));
-            });
-                        
-            function getSelectedValue(id) {
-                return $("#" + id).find("dt a span.value").html();
-            }
-
-            $(document).bind('click', function(e) {
-                var $clicked = $(e.target);
-                if (! $clicked.parents().hasClass("dropdown"))
-                    $(".dropdown dd ul").hide();
-            });
-
-
-            $("#flagSwitcher").click(function() {
-                $(".dropdown img.flag").toggleClass("flagvisibility");
-            });
-        });
-     </script>
-<!-- start menu -->     
-<link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="js/megamenu.js"></script>
-<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<!-- end menu -->
-<!-- top scrolling -->
-<script type="text/javascript" src="js/move-top.js"></script>
-<script type="text/javascript" src="js/easing.js"></script>
-   <script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
-				event.preventDefault();
-				$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
-			});
-		});
-	</script>
-</head>
-<body>
-   <div class="header-top">
-	 <div class="wrap"> 
-		<div class="logo">
-			<a href="index.html"><img src="images/logo.png" alt=""/></a>
-	    </div>
-	    <div class="cssmenu">
-		   <ul>
-			 <li class="active"><a href="register.html">Sign up & Save</a></li> 
-			 <li><a href="shop.html">Online Store</a></li> 
-			 <li><a href="login.html">My Account</a></li> 
-			 <li><a href="checkout.html">CheckOut</a></li> 
-		   </ul>
-		</div>
-
-		<div class="clear"></div>
- 	</div>
-   </div>
-   <div class="header-bottom">
-   		<div class="wrap">
-   		<!-- start header menu -->
-					<!--<div class="col_1_of_middle span_1_of_middle">-->
-						
-						<ul class="megamenu skyblue">
-						    <li><a class="color1" href="HCI.html">Home Customer Information</a></li>
-							<li class="grid"><a class="color2" href="BCI.html">Business Customer Information</a></li>
-				  			<li class="active grid"><a class="color3" href="salesman.html">Top Product</a></li>
-				  			<li><a class="color4" href="THC.html">Top Home Customer</a></li>
-				  			<li><a class="color5" href="TBC.html">Top Business Customer</a></li>				
-						</ul>
-
-	   				<!--</div>
-	   				<div class="col_1_of_middle span_1_of_middle">
-						<ul class="f_list1">
-							<li>
-								
-								<div class="search">	  
-								<input type="text" name="s" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
-								<input type="submit" value="Subscribe" id="submit" name="submit">
-								<div id="response"> </div>
-				 			</div><div class="clear"></div>
-				 		    </li>
-						</ul>
-					</div>-->
-
-
-
-		   <div class="clear"></div>
-     	</div>
-       </div>
 				<div align="left" style="margin-left:50px"><a href="manageinventory.php#inventoryForm"><br/>+ Add New Inventory</a></div>
 				<br/>
 				<h3>Inventory List</h3>
+				<hr>
+				<br/>
 				<table>
+				<td width="10%">Product ID</td>
+				<td width="20%">Product Name</td>
+				<td width="7%">Gender</td>
+				<td width="10%">Price</td>
+				<td width="15%">Type</td>
+				<td width="10%">Manage</td>
 				<?php echo $product_list; ?>
           <div class="wrap">
         </table>
         <br/>
         <br/>
+        <hr>	
         <a name = "inventoryForm" id="inventoryForm"></a>
         <h2>Add Inventory</h2>
         <br/>
@@ -267,32 +176,6 @@ if (isset($_POST['name'])) {
 
 			</div>
 
-
-        <div class="footer">
-	       	 <div class="footer-top">
-	       	 	<div class="copy">
-	       	  		 <div class="wrap">
-	       	   			  <p>© All rights reserved | RIFT </p>
-	     		  	 </div>
-	      	 	</div>
-	    	 </div>
-   		</div>
-
-       <script type="text/javascript">
-			$(document).ready(function() {
-			
-				var defaults = {
-		  			containerID: 'toTop', // fading element id
-					containerHoverID: 'toTopHover', // fading element hover id
-					scrollSpeed: 1200,
-					easingType: 'linear' 
-		 		};
-				
-				
-				$().UItoTop({ easingType: 'easeOutQuart' });
-				
-			});
-		</script>
-        <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
+<?php include_once("riftfooter.php");?>
 </body>
 </html>
