@@ -7,7 +7,7 @@ $db_server = mysql_connect($db_hostname, $db_username, $db_password);
 if (isset($_POST['proName']))
   	$proName = fix_string($_POST['proName']);
 
-$proQuery = "SELECT * FROM Product WHERE name = %proName%";
+$proQuery = "SELECT * FROM product WHERE name = %proName%";
 $result = mysql_query($proQuery);
 if(!$result) die ("Database access failed: " . mysql_error());
 
@@ -29,4 +29,13 @@ else{
   	echo "</table>";
 }
 }
+
+// echo<<<_END
+// <form method="post" action="/Applications/MAMP/htdocs/database project/RIFT/web/php/SearchProduct.php">  
+//                 <div class="search">  
+//                 <input type="text" name="proName" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+//                 <input type="submit" value="Subscribe" id="submit" name="submit">
+//                 <div id="response"> </div>
+//               </div><div class="clear"></div> </form>
+// _END;
 ?>

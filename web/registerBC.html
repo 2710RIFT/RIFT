@@ -113,26 +113,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
        <div class="register_account">
           	<div class="wrap">
     	      <h4 class="title">Create A Business Customer Account</h4>
-    		    <form method = "post" action = "SignInfo.php">
+    		    <form method = "post" action = "SignInfoBus.php">
     			 <div class="col_1_of_2 span_1_of_2">
-		   			    <div><input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'FName';}"></div>
-		      			<div><input type="text" value="E-Mail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-Mail';}"></div>
+		   			    <div>Name: <input type="text" name="name" ></div>
+		      			<div>Email: <input type="text" name="email"></div>
 		     
-		    			<div><input type="text" value="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"></div>
+		    			<div>Password: <input type="text" name="password"></div>
 
-		    			<input type="text" value="Gross" class="gross"> - <input type="text" value="Category" class="category">
+		    			<div>Gross: <input type="text" name="gross"></div> 
+		    		    <div>Category:<input type="text" name="category"></div>
 		          		
 		    	 </div>
 		    	  <div class="col_1_of_2 span_1_of_2">	
-		    		<div><input type="text" value="Address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Address';}"></div>
-		    		 <div><input type="text" value="City" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'City';}"></div>
-		    		<div><select id="State" name="State" onchange="change_state(this.value)" class="frm-field required">
+		    		<div>Street: <input type="text" name="street"></div>
+		    		 <div>City: <input type="text" name="city"></div>
+		    		 <div>State: <input type="text" name="state"></div>
+		    		<!-- <div><select id="State" name="State" onchange="change_state(this.value)" class="frm-field required">
 		            <option value="null">Select a State</option>         
 		            <option value="NY">New York</option>
 		            <option value="PA">Pennsylvania</option>
 		            
-		         </select></div>		        
-		         <div><input type="text" value="Zip Code" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Zip Code';}"></div>
+		         </select></div>		         -->
+		         <div>Zip Code: <input type="text" name="zip"></div>
 		            	
 		            	<br>
 		          </div>

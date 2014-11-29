@@ -3,6 +3,7 @@ session_start();
 ob_start();
 $pid = $_GET("pid");
 $name = $_GET("pname");
+//session_register("mycart");
 $arr = $_SESSION["mycart"];
 
 if(is_array(($arr))){
@@ -18,7 +19,8 @@ if(is_array(($arr))){
 else{
   $arr[$pid] = array("pid"=>$pid, "name"=>$name, "num"=>1);
 }
-$_SESSION["mycar"] = $arr;
+$_SESSION["mycart"] = $arr;
 ob_clean();
 header("/Applications/MAMP/htdocs/database project/RIFT/web/php/shoppingCart.php");
+
 ?>

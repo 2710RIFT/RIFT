@@ -195,11 +195,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							  <span class="reducedfrom">$66.00</span>
 							  <span class="actual">$12.00</span><a href="#">click for offer</a>
 							</div>
-				<input type="text" value="Quantity" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Quantity';}">
+				<input type="text" name="quantity" value="Quantity" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Quantity';}">
 
 				<div class="btn_form">
-				   <form>
-					 <input type="submit" value="Add to Cart" title="">
+				   <form method="get" action="AddToCart.php">
+					 <input type="submit" value="Add to Cart" name="mycart">
 				  </form>
 				</div>
 				
