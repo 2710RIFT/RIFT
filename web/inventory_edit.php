@@ -5,9 +5,9 @@ $db_server = mysql_connect($db_hostname, $db_username, $db_password);
   mysql_select_db($db_database, $db_server) or die("Unable to select database: " . mysql_error());
 ?>
 <?php
-//This section grabs all the products from the database
-$product_list = "";
-$sql = mysql_query("SELECT * FROM Product ORDER BY gender, type");
+if (isset($_GET['pid'])) {
+$targetID=$_GET['pid'];
+$sql = mysql_query("SELECT * FROM Product WHERE pid='$targetID' LIMIT 1");
 $productCount = mysql_num_rows($sql); //count the output
 if($productCount > 0){
  while($row=mysql_fetch_array($sql)){
@@ -17,66 +17,30 @@ if($productCount > 0){
  	$price = $row["price"];
  	$type = $row["type"];
  	$inventory = $row["inventory_amount"];
-
- 	$product_list .="<tr><td>$id</td><td>$name</td><td>$gender</td><td>$price</td><td>$type</td><td>$inventory</td><td><a href='inventory_edit.php?pid=$id'>edit</a>/<a href='manageinventory.php?deleteid=$id'>delete</a></tr>";
- }
+	}
 }
 else{
-	$product_list = "You have no products in the store";
+echo "Sorry, it doesn't exist";
+exit();
+}
 }
 ?>
 <?php
-if (isset($_GET['deleteid'])) {
- echo 'Do you really want to delete the product with the ID of '.$_GET['deleteid'].'? <a href="manageinventory.php?yesdelete='.$_GET['deleteid'].'">Yes</a> |<a href="manageinventory.php">No</a>';
-exit(); 
-}
-if (isset($_GET['yesdelete'])) {
- //remove item from system
- $id_to_delete=$_GET['yesdelete'];
- $sql=mysql_query("DELETE FROM Product WHERE pid='$id_to_delete' LIMIT 1") or die (mysql_error()); 
-//remove the image
- $pictodelete=("images/$id_to_delete.jpg");
- if(file_exists($pictodelete)) {
- 	unlink($pictodelete);	
- 	}
-	header("location:http://localhost:8888/RIFT/web/manageinventory.php");
-	exit();
-}
-?>
-<?php
-
 if (isset($_POST['name'])) {
-	
-	$pid = mysql_real_escape_string($_POST['pid']);
+
+	$pid = mysql_real_escape_string($_POST['thisID']);
 	$name = mysql_real_escape_string($_POST['name']);
 	$price = mysql_real_escape_string($_POST['price']);
 	$gender = mysql_real_escape_string($_POST['gender']);
 	$type = mysql_real_escape_string($_POST['type']);
 	$inventory_amount = mysql_real_escape_string($_POST['inventory_amount']);
+//update the record
+	$sql = mysql_query("UPDATE Product SET name='$name', price='$price', gender='$gender', type='$type', inventory_amount='$inventory_amount', WHERE pid='$pid'");
 	
-	//Check for a product that is identical
-	$sql = mysql_query("SELECT pid FROM Product WHERE name='$name' LIMIT 1");
-	$productMatch = mysql_num_rows($sql); //count output
-	if($productMatch > 0){
-		echo 'Sorry, you tried to place a duplicate product name into the system, <a href="manageinventory.php"> click here</a>';
-		exit();
-	}
-		//Check for a duplicate product ID
-	$sql = mysql_query("SELECT pid FROM Product WHERE pid='$pid' LIMIT 1");
-	$productMatch = mysql_num_rows($sql); //count output
-	if($productMatch > 0){
-		echo 'Sorry, you tried to place a duplicate product ID into the system, <a href="manageinventory.php">click here</a>';
-		exit();
-	}	
-
-	
-	//add product into the database
-	$sql = mysql_query("INSERT INTO Product (pid, name, price, gender, type, inventory_amount)
-	VALUES('$pid','$name','$price','$gender','$type','$inventory_amount')") or die(mysql_error());
-	$fid = mysql_real_escape_string($_POST['pid']);
-	//place image in the folder
-	$newname = "$fid.jpg";
+	if($_FILES['fileField']['tmp_name']!=""){
+	$newname = "$pid.jpg";
 	move_uploaded_file($_FILES['fileField']['tmp_name'],"images/$newname");
+	}
 	header("location:http://localhost:8888/RIFT/web/manageinventory.php");
 	exit();
 }
@@ -87,54 +51,34 @@ if (isset($_POST['name'])) {
 <title>RIFT SHOP LOG IN</title>
 <?php include_once("riftheader.php");?>
 
-				<div align="left" style="margin-left:50px"><a href="manageinventory.php#inventoryForm"><br/>+ Add New Inventory</a></div>
-				<br/>
-				<h3>Inventory List</h3>
-				<hr>
-				<br/>
-				<table>
-				<td width="10%">Product ID</td>
-				<td width="15%">Product Name</td>
-				<td width="7%">Gender</td>
-				<td width="10%">Price</td>
-				<td width="15%">Type</td>
-				<td width="5%">Inventory</td>
-				<td width="10%">Manage</td>
-				<?php echo $product_list; ?>
-          <div class="wrap">
-        </table>
-        <br/>
-        <br/>
-        <hr>	
         <a name = "inventoryForm" id="inventoryForm"></a>
-        <h2>Add Inventory</h2>
         <br/>
-        <form action="manageinventory.php" enctype="multipart/form-data" name="myForm" id="myForm" method="post">
+        <form action="inventory_edit.php" enctype="multipart/form-data" name="myForm" id="myForm" method="post">
         <table width="90%" border="0" cellspacing="0" cellpadding="6">
         	<tr>
         		<td width="10%">Product Name</td>
         		<td width="60%"><label>
-        		<input name="name" type="text" id="name" size="50"/>
+        		<input name="name" type="text" id="name" size="50"value="<?php echo $name; ?>"/>
         		</label></td>
         	</tr>
         	<tr>
         		<td>Product ID</td>
         		<td><label>
-        		<input name="pid" type="text" id="pid" size="10"/>
+        		<input name="pid" type="text" id="pid" size="10"value="<?php echo $id; ?>"/>
         		</label></td>
         	</tr>
         	<tr>
         		<td>Product Price</td>
         		<td><label>
         		$
-        		<input name="price"type="text"id="price"size="12"/>
+        		<input name="price"type="text"id="price"size="12"value="<?php echo $price; ?>"/>
         		</label></td>
-        	</tr>
+        	</tr>	
         	<tr>
         		<td>Gender</td>
         		<td><label>
         		<select name="gender" id="gender">
-        		<option value=""></option>
+        		<option value="<?php echo $gender; ?>"><?php echo $gender; ?></option>
         		<option value="m">Male</option>
         		<option value="f">Female</option>
         		</select>
@@ -144,8 +88,8 @@ if (isset($_POST['name'])) {
         		<td>Type</td>
         		<td><label>
         		<select name="type" id="type">
-        		<option value=""></option>
-						 <option value="belt">Belt</option>
+        		<option value="<?php echo $type; ?>"><?php echo $type; ?></option>
+						<option value="belt">Belt</option>
         		<option value="blazer">Blazer</option>
         		<option value="camisole">Camisole</option>
         		<option value="casual shirt">Casual Shirt</option>
@@ -170,7 +114,7 @@ if (isset($_POST['name'])) {
         	<tr>
         		<td>Inventory Amount</td>
         		<td><label>
-        		<input name="inventory_amount"type="text"id="inventory_amount"size="5"/>
+        		<input name="inventory_amount"type="text"id="inventory_amount"size="5"value="<?php echo $inventory; ?>"/>
         		</label></td>
         	</tr>
         	<tr>
@@ -182,7 +126,8 @@ if (isset($_POST['name'])) {
         	<tr>
         		<td></td>
         		<td><label>
-        		<input type="submit" name="button"id="button"value="Add This Item Now"/>
+        		<input name="thisID" type="hidden" value="<?php echo $targetID ?>"/>
+        		<input type="submit" name="button"id="button"value="Make Changes"/>
         		</label></td>
         	</tr>
         </table>
