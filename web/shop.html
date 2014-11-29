@@ -77,7 +77,7 @@
 			 <li class="active"><a href="register.html">Sign up & Save</a></li> 
 			 <li><a href="shop.html">Online Store</a></li> 
 			 <li><a href="login.html">My Account</a></li> 
-			 <li><a href="checkout.html">CheckOut</a></li> 
+			 <!-- <li><a href="checkout.html">CheckOut</a></li>  -->
 		   </ul>
 		</div>
 
@@ -100,11 +100,12 @@
 						<ul class="f_list1">
 							<li>
 								<!--<span class="m_8">Welcome to RIFT Online Store</span> -->
+								<form action='SearchProduct.php' method='post'>
 								<div class="search">	  
-								<input type="text" name="s" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+								<input type="text" name="proName" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
 								<input type="submit" value="Subscribe" id="submit" name="submit">
 								<div id="response"> </div>
-				 			</div><div class="clear"></div>
+				 			</div><div class="clear"></div></form>
 				 		    </li>
 						</ul>
 					</div>
