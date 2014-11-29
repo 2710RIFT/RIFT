@@ -35,7 +35,7 @@ if (isset($_POST['name'])) {
 	$type = mysql_real_escape_string($_POST['type']);
 	$inventory_amount = mysql_real_escape_string($_POST['inventory_amount']);
 //update the record
-	$sql = mysql_query("UPDATE Product SET name='$name', price='$price', gender='$gender', type='$type', inventory_amount='$inventory_amount', WHERE pid='$pid'");
+	$sql = mysql_query("UPDATE Product SET name='$name', price='$price', gender='$gender', type='$type', inventory_amount='$inventory_amount' WHERE pid='$pid'");
 	
 	if($_FILES['fileField']['tmp_name']!=""){
 	$newname = "$pid.jpg";
