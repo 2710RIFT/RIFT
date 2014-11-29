@@ -27,6 +27,30 @@ else{
 
 <?php
 
+if (isset($_GET['deleteid'])) {
+ echo 'Do you really want to delete the product with the ID of '.$_GET['deleteid'].'? <a href="manageinventory.php?yesdelete='.$_GET['deleteid'].'">Yes</a> |<a href="manageinventory.php">No</a>';
+exit();
+}
+
+if (isset($_GET['yesdelete'])) {
+
+ //remove item from system
+ $id_to_delete=$_GET['yesdelete'];
+ $sql=mysql_query("DELETE FROM Product WHERE pid='$id_to_delete' LIMIT 1") or die (mysql_error());
+
+ //remove the image
+ $pictodelete=("images/$id_to_delete.jpg");
+ if(file_exists($pictodelete)) {
+ 	unlink($pictodelete);	
+ 	}
+	header("location:manageinventory.php");
+	
+}
+exit();
+?>
+
+<?php
+
 if (isset($_POST['name'])) {
 	
 	$pid = mysql_real_escape_string($_POST['pid']);
