@@ -189,17 +189,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!-- end product_slider -->
 			</div>
 			<div class="cont1 span_2_of_a1">
-				<h3 class="m_3">Lorem ipsum dolor sit amet</h3>
-				
+				<!-- <h3 class="m_3" >Lorem ipsum dolor sit amet</h3> -->
+				<form method="get" action="AddToCart.php">
+				<input name="name" type="button" value="Lorem ipsum dolor sit amet">
 				<div class="price_single">
 							  <span class="reducedfrom">$66.00</span>
+							  <!-- <input name="price" type="button" value="$12.00"> -->
 							  <span class="actual">$12.00</span><a href="#">click for offer</a>
 							</div>
 				<input type="text" name="quantity" value="Quantity" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Quantity';}">
 
 				<div class="btn_form">
-				   <form method="get" action="AddToCart.php">
-					 <input type="submit" value="Add to Cart" name="mycart">
+				   
+					 <input type="submit" value="Add to Cart" name="action">
 				  </form>
 				</div>
 				

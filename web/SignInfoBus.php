@@ -68,12 +68,13 @@
 
  }
   else{
-    echo "Please fill in the required areas.";
+    echo "Please fill in the required areas.<br>";
+    echo "$fail";
    }
 
   function validate_name($field){
     if($field == ""){
-      return "No name was entered";
+      return "No name was entered.<br>";
     }
     else{
       return "";
@@ -95,7 +96,7 @@
   }
   function validate_email($field){
     if($field == ""){
-      return "No email was entered";
+      return "No email was entered.<br>";
     }
     else{
       return "";
@@ -103,7 +104,7 @@
   }
   function validate_gross($field){
     if($field == ""){
-      return "No gross was entered";
+      return "No gross was entered.<br>";
     }
     else{
       return "";
@@ -111,7 +112,7 @@
   }
   function validate_category($field){
     if($field == ""){
-      return "No category status was entered";
+      return "No category status was entered.<br>";
     }
     else{
       return "";
@@ -119,7 +120,7 @@
   }
   function validate_city($field){
     if($field == ""){
-      return "No city was entered";
+      return "No city was entered.<br>";
     }
     else{
       return "";
@@ -127,7 +128,7 @@
   }
   function validate_state($field){
     if($field == ""){
-      return "No state was entered";
+      return "No state was entered.<br>";
     }
     else{
       return "";
@@ -135,7 +136,7 @@
   }
   function validate_zip($field){
     if($field == ""){
-      return "No zip code was entered";
+      return "No zip code was entered.<br>";
     }
     else{
       return "";
@@ -143,7 +144,7 @@
   }
   function validate_street($field){
     if($field == ""){
-      return "No street was entered";
+      return "No street was entered.<br>";
     }
     else{
       return "";
